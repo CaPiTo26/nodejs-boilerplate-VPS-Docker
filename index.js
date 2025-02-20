@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Define a simple route
 app.get('/', (req, res) => {
-    res.json({ message: "Hello from my Node.js! Test modification 9" });
+    res.json({ message: "Hello from my Node.js! Test modification A" });
 });
 
 // Start the server

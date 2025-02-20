@@ -38,7 +38,7 @@ the VPS.
 #!/bin/bash
 
 # Step 1: Docker Build
-docker build -t "$REGISTRY_USER/$IMAGE_NAME:$TAG" -f "$DOCKERFILE_PATH/Dockerfile" "$DOCKERFILE_PATH"
+docker build -t "$REGISTRY_USER/$IMAGE_NAME:$TAG" -f "$DOCKERFILE_PATH_FOLDER/Dockerfile" "$DOCKERFILE_PATH"
 
 # Step 2: Docker Push
 docker push "$REGISTRY_USER/$IMAGE_NAME:$TAG"

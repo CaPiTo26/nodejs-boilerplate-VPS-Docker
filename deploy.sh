@@ -22,10 +22,10 @@ fi
 : "${CONTAINER_NAME:?CONTAINER_NAME variable is not defined}"
 : "${DOCKER_PORTS:=-p 3000:3000}"
 : "${DOCKER_ADDITIONAL_ARGS:=}"
-: "${DOCKERFILE_PATH:?DOCKERFILE_PATH variable is not defined}"
+: "${DOCKERFILE_PATH_FOLDER:?DOCKERFILE_PATH_FOLDER variable is not defined}"
 
 # 1. Build the Docker image locally with the complete name
-docker build -t "$REGISTRY_USER/$IMAGE_NAME:$TAG" -f "$DOCKERFILE_PATH/Dockerfile" "$DOCKERFILE_PATH"
+docker build -t "$REGISTRY_USER/$IMAGE_NAME:$TAG" -f "$DOCKERFILE_PATH_FOLDER/Dockerfile" "$DOCKERFILE_PATH_FOLDER"
 
 # 2. Push the Docker image to the registry
 docker push "$REGISTRY_USER/$IMAGE_NAME:$TAG"
