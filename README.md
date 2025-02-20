@@ -116,7 +116,12 @@ CMD ["npm", "start"]
 
 2. Ensure the prerequisites are met (Docker installed and logged in, SSH access to VPS configured).
 
-3. Run the `deploy.sh` script:
+3. Make the `deploy.sh` script executable:
+   ```bash
+   chmod +x deploy.sh
+   ```
+
+4. Run the `deploy.sh` script:
    ```bash
    ./deploy.sh
    ```
@@ -126,11 +131,13 @@ CMD ["npm", "start"]
     - Push the container image to Docker Hub (or another Docker registry).
     - SSH into the VPS, pull the updated image, and restart the container.
 
-4. Access the application using the VPS's IP address:
+5. Access the application using the VPS's IP address:
    ```bash
    http://<your-vps-ip>
    ```
 
+   > **Note**: Root access to the VPS is required for deployment. Ensure you have configured SSH with an RSA key for
+   secure access. Otherwise, check deploy.sh and modify ```sudo -i```
 ---
 
 ## Customization
