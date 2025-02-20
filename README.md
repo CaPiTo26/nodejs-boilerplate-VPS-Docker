@@ -36,21 +36,33 @@ the VPS.
 
 ```bash
 #!/bin/bash
+
 # Step 1: Docker Build
-echo "Building the Docker image..."
-docker build -t $IMAGE_NAME:$TAG .
+docker build -t "$REGISTRY_USER/$IMAGE_NAME:$TAG" -f "$DOCKERFILE_PATH/Dockerfile" "$DOCKERFILE_PATH"
 
 # Step 2: Docker Push
-echo "Pushing the Docker image to Docker Hub..."
-docker push $IMAGE_NAME:$TAG
+docker push "$REGISTRY_USER/$IMAGE_NAME:$TAG"
 
 # Step 3: SSH into VPS and pull the updated image
-echo "Deploying to VPS..."
-ssh $REMOTE_VPS << EOF
-  docker pull $IMAGE_NAME:$TAG
-  docker stop $IMAGE_NAME || true
-  docker rm $IMAGE_NAME || true
-  docker run -d --name $IMAGE_NAME -p 80:3000 $IMAGE_NAME:$TAG
+ssh "${SERVER_USER}@${SERVER_HOST}" << EOF
+    sudo -i
+    
+    # Stop and remove the old container if it exists
+    docker stop $CONTAINER_NAME || true
+    docker rm $CONTAINER_NAME || true
+
+    # Pull the new image
+    docker pull $REGISTRY_USER/$IMAGE_NAME:$TAG
+
+    # Run a new container
+    docker run -d \
+      --name $CONTAINER_NAME \
+      $DOCKER_PORTS \
+      $DOCKER_ADDITIONAL_ARGS \
+      $REGISTRY_USER/$IMAGE_NAME:$TAG
+      
+    # Clean up unused images
+    docker image prune -a -f
 EOF
 
 echo "Deployment completed successfully!"
