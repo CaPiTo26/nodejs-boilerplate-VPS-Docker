@@ -153,6 +153,10 @@ CMD ["npm", "start"]
   docker run -d --name $IMAGE_NAME -p 80:3000 -v /path/on/vps:/usr/src/app/data $IMAGE_NAME:$TAG
   ```
 
+- The `deploy.sh` script includes a cleanup step (```docker image prune -a -f```) at the end of the process that removes all Docker images except the one
+  used by the running container. If you do not want this behavior, you can delete or comment out the corresponding line
+  in the script.
+
 ---
 
 ## Troubleshooting
@@ -161,6 +165,9 @@ CMD ["npm", "start"]
 - **SSH Configuration**: Verify that the SSH key is correctly configured for access to the VPS.
 - **Image Pull Errors on VPS**: Confirm that the VPS has internet access and can connect to the Docker registry.
 - **Port Conflicts**: If port `80` is already in use, you can specify a different host port in the `docker run` command.
+- **Container Status**: Check the state of the container using `docker ps` or `docker ps -a` and verify the images with
+  `docker images` on the VPS.
+- **Firewall Rules**: Ensure that the port being used is allowed (e.g., `ufw allow 3000`).
 
 ---
 
