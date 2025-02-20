@@ -36,13 +36,6 @@ the VPS.
 
 ```bash
 #!/bin/bash
-
-# Variables
-IMAGE_NAME="nodejs-boilerplate"  # Replace with your desired image name
-TAG="latest"                    # Replace with the desired tag if needed
-REMOTE_VPS="user@your-vps-ip"   # Replace with your VPS SSH details
-DEPLOY_DIR="/path/to/deploy"    # Replace with desired path on the VPS for deployment
-
 # Step 1: Docker Build
 echo "Building the Docker image..."
 docker build -t $IMAGE_NAME:$TAG .
@@ -65,7 +58,7 @@ echo "Deployment completed successfully!"
 
 #### Notes:
 
-- Replace placeholders with actual values for `REMOTE_VPS` and `DEPLOY_DIR`.
+- Replace placeholders with your values on a .env file (See ```.env.example```).
 - Ensure you have SSH access set up to the VPS and permissions to manage Docker.
 
 ---
